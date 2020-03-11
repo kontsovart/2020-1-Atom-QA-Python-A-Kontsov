@@ -173,8 +173,8 @@ class TestInt:
     @pytest.mark.parametrize('abc_init', list(range(3)))
     def test_shift_left(self, abc_init):
         abc = abc_init
-        abc = abc << 1
-        assert abc == abc_init * 2
+        bca = abc << 1
+        assert bca == abc_init * 2
 
     @pytest.mark.parametrize('abc_length', list(range(3)))
     def test_multiplication(self, abc_length):
