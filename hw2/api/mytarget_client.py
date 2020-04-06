@@ -24,6 +24,7 @@ class MyTargetClient:
         self.campaigns_url = 'https://target.my.com/campaigns/list'
         self.segment_url = 'https://target.my.com/segments/segments_list'
         self.cookie_z_url = 'https://target.my.com/api/v2/localization_components.json?lang=en,ru'
+        self.delete_segment_url = 'https://target.my.com/api/v2/remarketing/segments'
 
         self.session = requests.Session()
 
@@ -40,7 +41,7 @@ class MyTargetClient:
         response = self.session.request('GET', self.csrf_url)
         set_cookie = response.headers['Set-Cookie'].split(';')
         new_csrf_token = [c for c in set_cookie if c.startswith('csrftoken=')][0].split('=')[-1]
-        self.csrf_token = new_csrf_token
+        self.csrftoken = new_csrf_token
 
     def get_cabinet_page(self):
         location = 'campaigns/list'
@@ -129,4 +130,31 @@ class MyTargetClient:
                 ],
                 "logicType": "or"}
         response = self.session.request("POST", urljoin(self.base_url, location), headers=headers, json=data)
+        return response
+
+    def delete_segment(self, segment_id):
+        headers = {
+            'Accept': 'application/json, text/javascript, */*; q=0.01',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Accept-Language': 'ru',
+            'Connection': 'keep-alive',
+
+            'Content-Type': 'application/json',
+            'DNT': '1',
+            'Host': 'target.my.com',
+            'Origin': 'https://target.my.com',
+            'Sec-Fetch-Dest': 'empty',
+            'Sec-Fetch-Mode': 'cors',
+            'Sec-Fetch-Site': 'same-origin',
+            'Referer': 'https://target.my.com/segments/segments_list',
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                          'Chrome/80.0.3987.162 Safari/537.36',
+            'X-CSRFToken': self.session.cookies['csrftoken'],
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+        segment_id_js = segment_id + '.json'
+        url = self.delete_segment_url + '/' + segment_id_js
+        response = self.session.request("DELETE",
+                                        url,
+                                        headers=headers)
         return response

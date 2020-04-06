@@ -62,3 +62,8 @@ class AudiencePageLocators(BaseLocators):
     DELETE_SEGMENT = (By.XPATH, '//table[@class="flexi-table__tbl js-table"]//tbody[@class="js-rows"]//tr[last()]//'
                                 'div[@data-class-name="RemoveView"]')
     DELETE_BUTTON = (By.XPATH, '//button[@class="button button_confirm-remove button_general"]')
+    OK_AND_MOY_MIR_1 = (By.XPATH, '//div[@class="adding-segments-modal__block-left js-sources-types"]//'
+                                'div[@class="adding-segments-item"]')
+    'adding-segments-item adding-segments-item_active'
+    OK_AND_MOY_MIR_2 = (By.XPATH, '//div[@class="adding-segments-modal__block-left js-sources-types"]//'
+                                'div[@class="adding-segments-item adding-segments-item_active"]')

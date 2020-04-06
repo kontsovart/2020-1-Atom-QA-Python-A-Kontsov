@@ -29,6 +29,14 @@ class AudiencePage(BasePage):
 
     def add_segment_window(self, ac):
         self.click(self.locators.CREATE_SEGMENT_BUTTON)
+        try:
+            element = self.find(self.locators.OK_AND_MOY_MIR_1)
+            ac.move_to_element(element).perform()
+            self.click(self.locators.OK_AND_MOY_MIR_1)
+        except TimeoutException:
+            element = self.find(self.locators.OK_AND_MOY_MIR_2)
+            ac.move_to_element(element).perform()
+            self.click(self.locators.OK_AND_MOY_MIR_2)
         self.click(self.locators.PLAY_AND_PAY_CHECKBOX)
 
         element = self.find(self.locators.SUBMIT_SEGMENT_BUTTON)
