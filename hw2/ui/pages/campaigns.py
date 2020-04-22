@@ -63,3 +63,8 @@ class CampaignsPage(BasePage):
     def save_button_click(self):
         self.find(self.locators.SAVE_BUTTON)
         self.click(self.locators.SAVE_BUTTON)
+
+    def search_campaign(self, name):
+        self.click(self.locators.INPUT_SEARCH_CAMPAIGN_NAME).send_keys(name)
+        self.find(self.locators.LIST_SEGMENT_NAMES)
+        return self.driver.find_element_by_css_selector("[title^='{}']".format(name))

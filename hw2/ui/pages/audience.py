@@ -58,3 +58,9 @@ class AudiencePage(BasePage):
             raise LackOfButtonDeleteSegment
         self.click(self.locators.DELETE_SEGMENT)
         self.click(self.locators.DELETE_BUTTON)
+
+    def search_segment(self, name):
+        self.click(self.locators.INPUT_SEARCH_SEGMENT_NAME).send_keys(name)
+        self.click(self.locators.SEARCH_NAME_BUTTON)
+        self.find(self.locators.LIST_SEGMENT_NAMES)
+        return self.driver.find_element_by_css_selector("[title^='{}']".format(name))

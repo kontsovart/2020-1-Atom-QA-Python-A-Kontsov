@@ -31,6 +31,8 @@ class MyTargetClient:
         self.user = user
         self.password = password
 
+        self.login()
+
     def get_auth_csrf_token(self):
         response = self.session.request('GET', self.login_url)
         set_cookie = response.headers['Set-Cookie'].split(';')
@@ -86,12 +88,21 @@ class MyTargetClient:
         }
         return self.session.request('POST', self.auth_url, data=data, headers=headers, allow_redirects=False)
 
-    def add_cookie(self, mc, ssdc, mrcu, sdcs, z_token, csrf_token, csrftoken):
+    def login(self):
+        self.auth_post()
+        self.get_base_csrf_token()
+        self.add_cookie(mc=self.session.cookies['mc'],
+                              ssdc=self.session.cookies['ssdc'],
+                              mrcu=self.session.cookies['mrcu'],
+                              sdcs=self.session.cookies['sdcs'],
+                              csrf_token=self.session.cookies['csrf_token'],
+                              csrftoken=self.session.cookies['csrftoken'])
+
+    def add_cookie(self, mc, ssdc, mrcu, sdcs, csrf_token, csrftoken):
         self.mc_token = mc
         self.ssdc_token = ssdc
         self.mrcu_token = mrcu
         self.sdcs_token = sdcs
-        self.z_token = z_token
         self.csrf_token = csrf_token
         self.csrftoken = csrftoken
 

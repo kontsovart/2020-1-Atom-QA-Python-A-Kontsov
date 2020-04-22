@@ -5,7 +5,6 @@ from tests.base_ui import BaseCase
 
 class Test(BaseCase):
 
-    # @pytest.mark.skip(reason='TEMP')
     @pytest.mark.UI
     def test_auth_positive(self):
         self.main_page.send_login_password("qa-python-target@yandex.ru", "qazwsx123")
@@ -13,7 +12,6 @@ class Test(BaseCase):
         element = campaigns_page.find(self.campaigns_page.locators.USERNAME_WRAP)
         assert "qa-python-target@yandex.ru" in element.text.lower()
 
-    # @pytest.mark.skip(reason='TEMP')
     @pytest.mark.UI
     def test_auth_negative(self):
         self.main_page.send_login_password("123", "123")
@@ -21,13 +19,11 @@ class Test(BaseCase):
         element = login_page.find(self.login_page.locators.INVALID_LOGIN_OR_PASSWORD)
         assert 'Invalid login or password' in element.text
 
-    # @pytest.mark.skip(reason='TEMP')
     @pytest.mark.UI
     def test_auth_fixture(self, get_campaigns_page):
         element = get_campaigns_page.find(self.campaigns_page.locators.USERNAME_WRAP)
         assert "qa-python-target@yandex.ru" in element.text.lower()
 
-    # @pytest.mark.skip(reason='TEMP')
     @pytest.mark.UI
     def test_new_campaign(self, random_string_ascii):
         self.main_page.send_login_password("qa-python-target@yandex.ru", "qazwsx123")
@@ -44,10 +40,9 @@ class Test(BaseCase):
         campaigns_page.upload_image(ac=ac, image_name='62144605.jpg')
         campaigns_page.submit_advertisement_click()
         campaigns_page.save_button_click()
-        element = campaigns_page.find(self.campaigns_page.locators.LAST_CAMPAIGN_NAME)
+        element = campaigns_page.search_campaign(random_string_ascii)
         assert random_string_ascii in element.text
 
-    # @pytest.mark.skip(reason='TEMP')
     @pytest.mark.UI
     def test_new_audience(self, random_string_ascii):
         self.main_page.send_login_password("qa-python-target@yandex.ru", "qazwsx123")
@@ -62,10 +57,9 @@ class Test(BaseCase):
         audience_page.input_segment_name(random_string_ascii)
         audience_page.submit_all_segment_click()
 
-        element = audience_page.find(self.audience_page.locators.SEGMENT_NAME)
+        element = audience_page.search_segment(random_string_ascii)
         assert random_string_ascii in element.get_attribute("title")
 
-    # @pytest.mark.skip(reason='TEMP')
     @pytest.mark.UI
     def test_delete_audience(self, random_string_ascii):
         self.main_page.send_login_password("qa-python-target@yandex.ru", "qazwsx123")
