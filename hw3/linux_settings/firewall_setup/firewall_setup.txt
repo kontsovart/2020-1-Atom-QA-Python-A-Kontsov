@@ -1,0 +1,10 @@
+semanage port -a -t ssh_port_t -p tcp 2022
+semanage port -a -t http_port_t -p tcp 12345
+firewall-cmd --add-port 2022/tcp --permanent
+firewall-cmd --zone=public --remove-port=22/tcp
+firewall-cmd --permanent --zone=public --add-service=http
+firewall-cmd --add-port 12345/tcp --permanent
+firewall-cmd --reload
+
+vi /etc/sshd_config (uncomment #Port 22 and change to Port 2022)
+vi /etc/nginx/nginx.conf (change listen port to 12345)

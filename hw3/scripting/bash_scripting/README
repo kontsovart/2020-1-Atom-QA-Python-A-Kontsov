@@ -1,0 +1,95 @@
+Данный скрипт позволяет парсить лог файлы Nginx.
+
+1) Для запуска скрипта необходимо указать путь для лог файла без указания флага. Пример запуска скрипта:
+./bash_script.sh ../logs/nginx_logs
+
+2) Делимитером при записи в файл и при выводе в консоль является следующая последовательность символов:
+------------------------------------
+Данная последовательность отделяет полученную информацию для каждого таска.
+
+3) В услучае успешного выполнения скрипта вернется код ответа 0, в обратном случае 1.
+
+4) Скрипт выводит полученную информацию в консоль в следующем формате:
+
+Number of lines in a file:  51462
+------------------------------------
+Number of lines with  GET :  51379
+Number of lines with  HEAD :  83
+------------------------------------
+Top 10 biggest requests:
+GET /downloads/product_1 5.9.121.211 01/Jun/2015:20:06:53 86377168
+GET /downloads/product_1 2a01:7e00::f03c:91ff:fe70:a4cc 18/May/2015:16:05:29 86166026
+GET /downloads/product_1 74.205.117.244 31/May/2015:21:05:19 85619205
+GET /downloads/product_1 74.205.117.244 31/May/2015:14:05:54 85619205
+GET /downloads/product_1 74.205.117.244 31/May/2015:14:05:51 85619205
+GET /downloads/product_1 54.86.159.116 31/May/2015:22:05:55 85619205
+GET /downloads/product_1 54.239.240.49 31/May/2015:00:05:17 85619205
+GET /downloads/product_1 54.209.69.97 31/May/2015:01:05:31 85619205
+GET /downloads/product_1 54.175.18.186 31/May/2015:12:05:48 85619205
+GET /downloads/product_1 54.174.222.19 31/May/2015:20:05:16 85619205
+------------------------------------
+Top 10 mas counter requests with client error:
+GET /downloads/product_1 404 216.46.173.126
+GET /downloads/product_2 404 180.179.174.219
+GET /downloads/product_1 404 65.39.197.164
+GET /downloads/product_1 404 74.125.60.158
+GET /downloads/product_1 404 80.91.33.133
+GET /downloads/product_2 404 204.77.168.241
+GET /downloads/product_1 404 119.252.76.162
+GET /downloads/product_1 404 84.208.15.12
+GET /downloads/product_1 404 79.136.114.202
+GET /downloads/product_1 404 54.183.198.11
+------------------------------------
+Top 10 biggest requests with client error:
+GET /downloads/product_1 404 81.198.186.18
+GET /downloads/product_1 404 81.198.186.18
+GET /downloads/product_1 404 81.198.186.18
+GET /downloads/product_1 404 81.198.186.18
+GET /downloads/product_1 404 81.198.186.18
+GET /downloads/product_1 404 81.198.186.18
+GET /downloads/product_1 404 81.198.186.18
+GET /downloads/product_1 404 81.198.186.18
+GET /downloads/product_1 404 81.198.186.18
+GET /downloads/product_1 404 81.198.186.18
+
+
+
+5) Скрипт записывает полученную ифнормацию в файл с названием info в следующем формате:
+
+51462
+------------------------------------
+GET 51379
+HEAD 83
+------------------------------------
+GET /downloads/product_1 5.9.121.211 01/Jun/2015:20:06:53 86377168
+GET /downloads/product_1 2a01:7e00::f03c:91ff:fe70:a4cc 18/May/2015:16:05:29 86166026
+GET /downloads/product_1 74.205.117.244 31/May/2015:21:05:19 85619205
+GET /downloads/product_1 74.205.117.244 31/May/2015:14:05:54 85619205
+GET /downloads/product_1 74.205.117.244 31/May/2015:14:05:51 85619205
+GET /downloads/product_1 54.86.159.116 31/May/2015:22:05:55 85619205
+GET /downloads/product_1 54.239.240.49 31/May/2015:00:05:17 85619205
+GET /downloads/product_1 54.209.69.97 31/May/2015:01:05:31 85619205
+GET /downloads/product_1 54.175.18.186 31/May/2015:12:05:48 85619205
+GET /downloads/product_1 54.174.222.19 31/May/2015:20:05:16 85619205
+------------------------------------
+GET /downloads/product_1 404 216.46.173.126
+GET /downloads/product_2 404 180.179.174.219
+GET /downloads/product_1 404 65.39.197.164
+GET /downloads/product_1 404 74.125.60.158
+GET /downloads/product_1 404 80.91.33.133
+GET /downloads/product_2 404 204.77.168.241
+GET /downloads/product_1 404 119.252.76.162
+GET /downloads/product_1 404 84.208.15.12
+GET /downloads/product_1 404 79.136.114.202
+GET /downloads/product_1 404 54.183.198.11
+------------------------------------
+GET /downloads/product_1 404 81.198.186.18
+GET /downloads/product_1 404 81.198.186.18
+GET /downloads/product_1 404 81.198.186.18
+GET /downloads/product_1 404 81.198.186.18
+GET /downloads/product_1 404 81.198.186.18
+GET /downloads/product_1 404 81.198.186.18
+GET /downloads/product_1 404 81.198.186.18
+GET /downloads/product_1 404 81.198.186.18
+GET /downloads/product_1 404 81.198.186.18
+GET /downloads/product_1 404 81.198.186.18
