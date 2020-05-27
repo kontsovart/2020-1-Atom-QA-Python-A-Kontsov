@@ -24,6 +24,7 @@ class TestMailAppClient:
                              email=random_user["email"],
                              url=config["url_app"])
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_auth_positive(self, api_client_stable, setup_base):
         """Тест проверяет успешную авторизацию.
@@ -45,6 +46,7 @@ class TestMailAppClient:
                                            ["", ""],
                                            ["1" * 17, "123"],
                                            ["1231231", "1" * 256]])
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_auth_negative(self, user_pass, config):
         """Тест проверяет негативную авторизацию.
@@ -63,6 +65,7 @@ class TestMailAppClient:
         response = client.auth_post()
         assert 401 == response.status_code
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_get_welcome_page(self, api_client_stable):
         """Тест проверяет получение домашней страницы.
@@ -74,6 +77,7 @@ class TestMailAppClient:
         response = api_client_stable.get_welcome_page()
         assert 200 == response.status_code
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_get_login_page(self, api_client_stable):
         """Тест проверяет получение страницы авторизации.
@@ -84,6 +88,7 @@ class TestMailAppClient:
         response = api_client_stable.get_login_page()
         assert 200 == response.status_code
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_get_registration_page(self, api_client_function):
         """Тест проверяет получение страницы регистрации.
@@ -95,6 +100,7 @@ class TestMailAppClient:
         assert 200 == response.status_code
 
     # Test failed
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_get_find_me_error(self, api_client_stable):
         """Тест проверяет получение элемента при загрузке домашней страницы.
@@ -106,6 +112,7 @@ class TestMailAppClient:
         response = api_client_stable.get_find_me_error()
         assert 200 == response.status_code
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_logout_get(self, api_client_function, setup_base):
         """Тест проверяет завершение сессии при нажатии на кнопку logout.
@@ -127,6 +134,7 @@ class TestMailAppClient:
         assert 200 == response.status_code
         assert res.active == 0
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_registration_post_positive(self, api_client_function, setup_base):
         """Тест проверяет успешную регистрацию.
@@ -142,6 +150,7 @@ class TestMailAppClient:
         assert res is not None
 
     # Test failed
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_registration_post_negative_user(self, api_client_stable, random_string_ascii, setup_base, config):
         """Тест проверяет негативную регистрацию.
@@ -163,6 +172,7 @@ class TestMailAppClient:
         assert len(res) == 1
 
     # Test failed
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_registration_post_negative_email(self, api_client_stable, random_string_ascii, setup_base, config):
         """Тест проверяет негативную регистрацию.
@@ -198,6 +208,7 @@ class TestMailAppClient:
                                        [None, None, "1" * 256, "1" * 256],
                                        ["1" * 17, None, "123", "123"],
                                        ["1", "1", "1", "2"]])
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_registration_post_negative_all(self, users, setup_base, random_string_ascii, config):
         """Тест проверяет негативную регистрацию.
@@ -222,6 +233,7 @@ class TestMailAppClient:
         assert 400 == response.status_code
         assert res is None
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_registration_post_empty(self, api_client_function):
         """Тест проверяет негативную регистрацию пользователя.
@@ -233,6 +245,7 @@ class TestMailAppClient:
         assert 400 == response.status_code
 
     # Test failed
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_add_user_post(self, api_client_stable, random_user, setup_base):
         """Тест проверяет успешное добавление пользователя.
@@ -250,6 +263,7 @@ class TestMailAppClient:
         assert 201 == response.status_code
         assert res is not None
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_add_user_post_negative_username(self, api_client_stable, random_user, setup_base):
         """Тест проверяет негативное добавление пользователя.
@@ -268,6 +282,7 @@ class TestMailAppClient:
         assert 400 == response.status_code
         assert len(res) == 1
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_add_user_post_negative_email(self, api_client_stable, random_user, setup_base):
         """Тест проверяет негативное добавление пользователя.
@@ -286,6 +301,7 @@ class TestMailAppClient:
         assert 400 == response.status_code
         assert len(res) == 1
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_add_user_post_empty(self, api_client_stable):
         """Тест проверяет негативное добавление пользователя.
@@ -298,6 +314,7 @@ class TestMailAppClient:
         response = api_client_stable.add_user_post(empty=True)
         assert 400 == response.status_code
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_add_user_get(self, api_client_stable):
         """Тест проверяет негативное добавление пользователя.
@@ -310,6 +327,7 @@ class TestMailAppClient:
         response = api_client_stable.add_user_get()
         assert 404 == response.status_code
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_del_user_positive(self, api_client_function, setup_base):
         """Тест проверяет успешное удаление пользователя.
@@ -325,6 +343,7 @@ class TestMailAppClient:
         assert 204 == response.status_code
         assert res is None
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_del_user_negative_not_auth(self, api_client_function, setup_base):
         """Тест проверяет негативное удаление пользователя.
@@ -346,6 +365,7 @@ class TestMailAppClient:
         assert 401 == response.status_code
         assert res is not None
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_del_user_negative_not_exists(self, api_client_stable, random_string_ascii, setup_base):
         """Тест проверяет негативное удаление пользователя.
@@ -361,6 +381,7 @@ class TestMailAppClient:
         assert 404 == response.status_code
         assert res is None
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_del_user_empty(self, api_client_stable):
         """Тест проверяет негативное удаление пользователя.
@@ -372,6 +393,7 @@ class TestMailAppClient:
         response = api_client_stable.del_user_get(empty=True)
         assert 404 == response.status_code
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_block_user_positive(self, api_client_function, setup_base):
         """Тест проверяет успешную блокировку пользователя.
@@ -387,6 +409,7 @@ class TestMailAppClient:
         assert 200 == response.status_code
         assert res.access == 0
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_block_user_negative_not_auth(self, api_client_function, setup_base):
         """Тест проверяет негативную блокировку пользователя.
@@ -408,6 +431,7 @@ class TestMailAppClient:
         assert 401 == response.status_code
         assert res.access == 1
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_block_user_negative_not_exists(self, api_client_stable, random_string_ascii, setup_base):
         """Тест проверяет негативную блокировку пользователя.
@@ -423,6 +447,7 @@ class TestMailAppClient:
         assert 404 == response.status_code
         assert res is None
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_block_user_empty(self, api_client_stable):
         """Тест проверяет негативную блокировку пользователя.
@@ -433,6 +458,7 @@ class TestMailAppClient:
         response = api_client_stable.block_user_get(empty=True)
         assert 404 == response.status_code
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_accept_user_positive(self, api_client_function, api_client_stable, setup_base):
         """Тест проверяет успешную разблокировку пользователя.
@@ -456,6 +482,7 @@ class TestMailAppClient:
         assert 200 == response.status_code
         assert res.access == 1
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_accept_user_negative_not_auth(self, api_client_function, api_client_stable, setup_base):
         """Тест проверяет негативную разблокировку пользователя.
@@ -478,6 +505,7 @@ class TestMailAppClient:
         assert 401 == response.status_code
         assert res.access == 0
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_accept_user_negative_not_exists(self, api_client_stable, random_string_ascii, setup_base):
         """Тест проверяет негативную разблокировку пользователя.
@@ -494,6 +522,7 @@ class TestMailAppClient:
         assert 404 == response.status_code
         assert res is None
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_accept_user_empty(self, api_client_stable):
         """Тест проверяет негативную разблокировку пользователя.
@@ -506,6 +535,7 @@ class TestMailAppClient:
         response = api_client_stable.accept_user_get(empty=True)
         assert 404 == response.status_code
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_get_app_status(self, api_client_stable):
         """Тест проверяет успешное получение статуса приложения.
@@ -519,6 +549,7 @@ class TestMailAppClient:
         assert 200 == response.status_code
         assert '{"status":"ok"}' == response.text.strip()
 
+    @pytest.mark.usefixtures("take_logs_when_failure")
     @pytest.mark.API
     def test_get_app_status_not_auth(self, api_client_stable):
         """Тест проверяет успешное получение статуса приложения.
