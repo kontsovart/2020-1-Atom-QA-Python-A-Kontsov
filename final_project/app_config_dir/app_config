@@ -1,0 +1,6 @@
+APP_HOST = '0.0.0.0'
+APP_PORT = 12345
+MYSQL_HOST = some-mariadb
+MYSQL_PORT = 3306
+MYSQL_DB = mail_app
+VK_URL = 192.168.0.103:5000
